@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+
+# Django
+*.sqlite3
+*.log
+/staticfiles/
+media/
+
+# Secrets
+config/settings_local.py

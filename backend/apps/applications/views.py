@@ -1,0 +1,13 @@
+from django.shortcuts import render
+
+# Create your views here.
+from rest_framework import viewsets
+from .models import Application
+from .serializers import ApplicationSerializer
+
+class ApplicationViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet pour gérer les candidatures des bénévoles.
+    """
+    queryset = Application.objects.all()
+    serializer_class = ApplicationSerializer
