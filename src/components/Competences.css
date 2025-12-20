@@ -1,0 +1,74 @@
+.competences-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.competences-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.competences-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.add-btn {
+  color: #3b82f6;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.add-btn:hover {
+  color: #2563eb;
+}
+
+.add-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.competences-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.competence-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.competence-item.verified {
+  color: #10b981;
+}
+
+.check-icon {
+  font-size: 18px;
+}
+
+.competence-name {
+  font-weight: 500;
+}
+
+.competence-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tag {
+  padding: 6px 12px;
+  background: #f3f4f6;
+  border-radius: 9999px;
+  font-size: 14px;
+}

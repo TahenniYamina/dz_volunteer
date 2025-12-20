@@ -1,0 +1,103 @@
+/*.applications-card {
+  background-color: white;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.applications-card h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  font-size: 12px;
+  color: #6b7280;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 8px;
+}
+
+td {
+  padding: 12px 0;
+  font-size: 14px;
+}
+
+td.gray {
+  color: #6b7280;
+}
+
+.status {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status.pending {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.status.accepted {
+  background-color: #d1fae5;
+  color: #047857;
+}
+*/
+.candidatures-card {
+background: white;
+border-radius: 12px;
+box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+padding: 24px;
+}
+.candidatures-title {
+font-size: 18px;
+font-weight: bold;
+margin-bottom: 16px;
+}
+.candidatures-table {
+width: 100%;
+border-collapse: collapse;
+}
+.candidatures-table thead tr {
+text-align: left;
+font-size: 14px;
+color: #6b7280;
+border-bottom: 1px solid #e5e7eb;
+}
+.candidatures-table th {
+padding-bottom: 12px;
+font-weight: 500;
+}
+.candidatures-table tbody tr {
+border-bottom: 1px solid #e5e7eb;
+}
+.candidatures-table tbody tr:last-child {
+border-bottom: none;
+}
+.candidatures-table td {
+padding: 16px 0;
+}
+.text-gray {
+color: #6b7280;
+}
+.status-badge {
+padding: 6px 12px;
+border-radius: 9999px;
+font-size: 12px;
+font-weight: 500;
+}
+.status-badge.status-pending {
+background: #fef3c7;
+color: #92400e;
+}
+.status-badge.status-accepted {
+background: #d1fae5;
+color: #065f46;
+}

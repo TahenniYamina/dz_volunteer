@@ -1,0 +1,194 @@
+/*.profile-card {
+  background-color: white;
+  border-radius: 24px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.profile-avatar {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 12px auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.online-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  background-color: #22c55e;
+  border: 2px solid white;
+  border-radius: 50%;
+  color: white;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 8px 0 4px 0;
+}
+
+.profile-card p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.earth-emoji {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.profile-completion {
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.completion-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.completion-bar {
+  background-color: #e5e7eb;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.completion-fill {
+  background-color: #2563eb;
+  height: 100%;
+  border-radius: 4px 0 0 4px;
+}
+
+.edit-profile-btn {
+  width: 100%;
+  padding: 8px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.edit-profile-btn:hover {
+  background-color: #f3f4f6;
+}*/
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-avatar-container {
+  position: relative;
+}
+
+.profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+}
+
+.profile-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #10b981;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+}
+
+.profile-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+.profile-quote {
+  color: #6b7280;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.profile-progress {
+  margin-top: 24px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.progress-label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.progress-value {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.progress-bar {
+  width: 100%;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  height: 8px;
+}
+
+.progress-fill {
+  background: #3b82f6;
+  height: 8px;
+  border-radius: 9999px;
+}
+
+.edit-btn {
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-weight: 500;
+  background: white;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #f9fafb;
+}
