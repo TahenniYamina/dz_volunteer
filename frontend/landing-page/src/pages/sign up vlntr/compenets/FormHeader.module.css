@@ -1,0 +1,63 @@
+.formHeader {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: #111318;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #606e8a;
+  line-height: 1.6;
+}
+
+.ssoButton {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 12px;
+  background-color: #f0f4ff;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3474f4;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 32px;
+}
+
+.ssoButton:hover {
+  background-color: #e0ecff;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.dividerLine {
+  height: 2px;
+  width: 2px;
+  flex: 1;
+  background-color: #e5e7eb;
+}
+
+.dividerText {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9ca3af;
+}

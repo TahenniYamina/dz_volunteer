@@ -1,0 +1,70 @@
+.how-it-works {
+  padding: 80px 20px;
+  background-color: #ffffff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.header h2 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #0d1b13;
+}
+
+.header p {
+  margin-top: 12px;
+  font-size: 1.1rem;
+  color: #6b7280;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 48px;
+  text-align: center;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: rgba(15, 1, 66, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon span {
+  font-size: 32px;
+  color: #020347;
+}
+
+.step h3 {
+  margin-top: 20px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #0d1b13;
+}
+
+.step p {
+  margin-top: 10px;
+  color: #6b7280;
+  line-height: 1.6;
+}

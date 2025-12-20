@@ -1,0 +1,126 @@
+.rightSection {
+  width: 45%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background-color: #f9fafb;
+  display: flex;
+}
+
+.rightSectionInner {
+  position: absolute;
+  inset: 0;
+}
+
+.bgImage {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+.gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2), transparent);
+}
+
+.rightContent {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 48px;
+  color: #ffffff;
+}
+
+.floatingCard {
+  margin-bottom: 40px;
+  max-width: 448px;
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 24px;
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.avatarGroup {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.avatars {
+  display: flex;
+  margin-left: -12px;
+}
+
+.avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+  margin-left: -12px;
+}
+
+.avatarCount {
+  display: flex;
+  height: 40px;
+  width: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid white;
+  background-color: #FFD43B;
+  font-size: 12px;
+  font-weight: bold;
+  color: #111318;
+  margin-left: -12px;
+}
+
+.quote {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.quoteAuthor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.authorName {
+  font-weight: bold;
+  color: #FFD43B;
+}
+
+.authorInfo {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  opacity: 0.8;
+}
+
+.tag {
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #ffffff;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,74 @@
+:root {
+  --primary: #3474f4;
+  --secondary-green: #28C48B;
+  --secondary-yellow: #FFD43B;
+  --background-light: #f5f6f8;
+  --background-dark: #101622;
+  --text-dark: #111318;
+  --text-gray: #606e8a;
+  --border-light: #f0f1f5;
+  --gray-800: #1f2937;
+  --gray-700: #374151;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+input, select {
+  font-family: inherit;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+}
+
+.container {
+  max-width: 1880px;
+  margin: 0 auto;
+  padding: 0 ;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--border-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}

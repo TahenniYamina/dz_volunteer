@@ -1,0 +1,61 @@
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.required {
+  color: #ef4444;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 16px;
+  color: #9ca3af;
+  font-size: 20px;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.inputIconFocused {
+  color: #3474f4;
+}
+
+.select {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  padding: 14px 16px 14px 44px;
+  font-size: 16px;
+  color: #111318;
+  outline: none;
+  transition: all 0.2s;
+  appearance: none;
+  cursor: pointer;
+}
+
+.selectFocused {
+  border-color: #3474f4;
+  box-shadow: 0 0 0 4px rgba(52, 116, 244, 0.1);
+}
+
+.selectArrow {
+  position: absolute;
+  right: 16px;
+  color: #9ca3af;
+  font-size: 20px;
+  pointer-events: none;
+}

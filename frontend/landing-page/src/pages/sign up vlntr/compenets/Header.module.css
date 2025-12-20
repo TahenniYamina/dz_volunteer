@@ -1,0 +1,32 @@
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  width: 200px;
+}
+
+
+.headerLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #606e8a;
+  text-decoration: none;
+}
+
+.loginLink {
+  color: #3474f4;
+  text-decoration: underline;
+}

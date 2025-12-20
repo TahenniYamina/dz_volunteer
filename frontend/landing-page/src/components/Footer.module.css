@@ -1,0 +1,165 @@
+.footer {
+  background: white;
+  border-top: 1px solid var(--border-light);
+  padding: 4rem 1.5rem 2rem;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.topSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: space-between;
+}
+
+.brandSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 28rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-dark);
+}
+
+.description {
+  color: var(--text-gray);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.linksSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.linkColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.linkColumn h3 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dark);
+}
+
+.linkColumn a {
+  font-size: 0.875rem;
+  color: var(--text-gray);
+  transition: color 0.3s;
+}
+
+.linkColumn a:hover {
+  color: var(--primary);
+}
+
+.bottomSection {
+  border-top: 1px solid var(--border-light);
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.copyright {
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+.languageSelector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-light);
+  border-radius: 0.375rem;
+  background: white;
+}
+
+.languageSelector span {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+.logoImage{
+  width: 200px;
+}
+.languageSelector select {
+  border: none;
+  background: transparent;
+  font-size: 0.875rem;
+  color: #4b5563;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+}
+.parent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+}
+
+.child {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease-in-out;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.child:hover {
+  background-color: white;
+  background-position: -100px 100px, -100px 100px;
+  transform: rotate3d(0.5, 1, 0, 30deg);
+  transform: perspective(180px) rotateX(60deg) translateY(2px);
+  box-shadow: 0px 10px 10px rgb(1, 49, 182);
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+}
+
+.button:hover {
+  width: inherit;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate3d(0px, 0px, 15px) perspective(180px) rotateX(-35deg) translateY(2px);
+  border-radius: 50%;
+}
+@media (min-width: 768px) {
+  .bottomSection {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1024px) {
+  .linksSection {
+    gap: 6rem;
+  }
+}

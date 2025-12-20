@@ -1,0 +1,66 @@
+.logoUploadContainer {
+  flex-shrink: 0;
+}
+
+.logoInputLabel {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111318;
+  margin-bottom: 8px;
+}
+
+.logoUpload {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  border: 2px dashed #d1d5db;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #f9fafb;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.logoUpload:hover {
+  border-color: #3474f4;
+  background-color: #eff6ff;
+}
+
+.logoIcon {
+  font-size: 40px;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.logoUpload:hover .logoIcon {
+  color: #3474f4;
+}
+
+.logoText {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.logoUpload:hover .logoText {
+  color: #3474f4;
+}
+
+.fileInput {
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+.logoPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

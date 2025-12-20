@@ -1,0 +1,138 @@
+.sidebarCard {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f1f5;
+  padding: 24px;
+  position: sticky;
+  top: 96px;
+}
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.sidebarIconWrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 212, 59, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d97706;
+}
+
+.sidebarTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111318;
+}
+
+.benefitsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.benefitItem {
+  display: flex;
+  gap: 16px;
+}
+
+.benefitIcon {
+  color: #28C48B;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.benefitTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111318;
+  margin-bottom: 4px;
+}
+
+.benefitDescription {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.helpSection {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f1f5;
+}
+
+.helpCard {
+  background-color: #eff6ff;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+.helpIcon {
+  color: #3474f4;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.helpTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #3474f4;
+  margin-bottom: 4px;
+}
+
+.helpLink {
+  color: #3474f4;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.helpLink:hover {
+  text-decoration: underline;
+}
+
+.testimonialCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  height: 160px;
+  background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .testimonialCard {
+    display: block;
+  }
+}
+
+.testimonialContent {
+  position: absolute;
+  inset: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: white;
+}
+
+.testimonialTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.testimonialText {
+  font-size: 14px;
+  opacity: 0.9;
+}
