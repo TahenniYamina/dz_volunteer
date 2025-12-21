@@ -30,6 +30,7 @@ router.register(r'skills', SkillViewSet)
 router.register(r'missions', MissionViewSet)
 router.register(r'applications', ApplicationViewSet)
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),  # toutes les routes API sont exposées ici
