@@ -4,4 +4,4 @@ from .models import Skill
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
-        fields = ('id', 'name', 'requires_verification')
+        fields = ('id', 'name', 'verification_required')

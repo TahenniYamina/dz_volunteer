@@ -18,13 +18,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--9k9hi-8uov&fb1!irknjs23tr26x+ko2bsehz76r+4xsdb4!2'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
-ALLOWED_HOSTS = []
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,10 +36,11 @@ INSTALLED_APPS = [
     'apps.skills',
     'apps.applications',
     'apps.engagement',
-    'apps.core',
+    'apps.odds',
 
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -123,5 +120,24 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
+
+# Ajouter à la fin de settings.py, avant le try ... import settings_local
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # Pour le token DRF
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Toutes les vues requièrent auth
+    ],
+}
+
+# =========================
+# Local settings override
+# =========================
+try:
+    from .settings_local import *
+except ImportError:
+    pass
+
 
