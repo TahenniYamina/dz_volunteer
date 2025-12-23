@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import Mission
-from apps.users.serializers import UserSerializer
+from apps.users.models import User
 from apps.skills.serializers import SkillSerializer
 
 class MissionSerializer(serializers.ModelSerializer):
-    organization = UserSerializer(read_only=True)
+    organization = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(is_organization=True))
     skills_required = SkillSerializer(many=True, read_only=True)
 
     class Meta:
