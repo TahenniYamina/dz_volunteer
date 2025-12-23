@@ -22,7 +22,7 @@ from apps.users.views import UserViewSet
 from apps.skills.views import SkillViewSet
 from apps.missions.views import MissionViewSet
 from apps.applications.views import ApplicationViewSet
-
+from rest_framework.authtoken.views import obtain_auth_token
 # Création du router
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -34,5 +34,6 @@ router.register(r'applications', ApplicationViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),  # toutes les routes API sont exposées ici
+    path('api/auth/login/', obtain_auth_token),
 ]
 

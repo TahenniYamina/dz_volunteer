@@ -9,11 +9,17 @@ class Mission(models.Model):
     location = models.CharField(max_length=200)
     date = models.DateField()
     slots = models.PositiveIntegerField()  # nombre de bénévoles nécessaires
+
+
     organization = models.ForeignKey(User, on_delete=models.CASCADE, related_name='missions')
-    skills_required = models.ManyToManyField(Skill, blank=True)
-    is_archived = models.BooleanField(default=False)
+
+    skills_required = models.ManyToManyField(Skill, blank=True, related_name='missions')
+
     odd = models.ForeignKey(ODD, on_delete=models.SET_NULL, null=True, blank=True, related_name='missions')
 
+    is_archived = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
+    
+
