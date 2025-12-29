@@ -66,29 +66,41 @@ def signup(request):
 @permission_classes([AllowAny])
 def login(request):
     """
-    Connexion d'un utilisateur existant
+    Connexion avec email ou username
     """
-    username = request.data.get('username')
+    identifier = request.data.get('identifier')  # email OU username
     password = request.data.get('password')
-    
-    if not username or not password:
+
+    if not identifier or not password:
         return Response(
-            {'error': 'Username et password sont requis'},
+            {'error': 'Email/username et password sont requis'},
             status=status.HTTP_400_BAD_REQUEST
         )
-    
-    # Authentifier l'utilisateur
-    user = authenticate(username=username, password=password)
-    
+
+    #  Chercher l'utilisateur
+    try:
+        if '@' in identifier:
+            user = User.objects.get(email=identifier)
+        else:
+            user = User.objects.get(username=identifier)
+    except User.DoesNotExist:
+        return Response(
+            {'error': 'Identifiants invalides'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    #  Authentifier avec username + password
+    user = authenticate(username=user.username, password=password)
+
     if user is None:
         return Response(
             {'error': 'Identifiants invalides'},
             status=status.HTTP_401_UNAUTHORIZED
         )
-    
-    # Récupérer ou créer le token
+
+    # Token
     token, created = Token.objects.get_or_create(user=user)
-    
+
     return Response({
         'token': token.key,
         'user': UserSerializer(user).data

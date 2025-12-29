@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class CoreConfig(AppConfig):
+class OddsConfig(AppConfig):
     name = 'apps.odds'

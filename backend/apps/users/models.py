@@ -3,6 +3,11 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class User(AbstractUser):
+    email = models.EmailField(
+        unique=True,
+        blank=False,
+        null=False
+    )
     is_volunteer = models.BooleanField(default=False)
     is_organization = models.BooleanField(default=False)
     bio = models.TextField(blank=True, null=True)
