@@ -1,3 +1,8 @@
 from django.shortcuts import render
+from rest_framework import viewsets
+from .models import ODD
+from .serializers import ODDSerializer
 
-# Create your views here.
+class ODDViewSet(viewsets.ModelViewSet):
+    queryset = ODD.objects.all()
+    serializer_class = ODDSerializer

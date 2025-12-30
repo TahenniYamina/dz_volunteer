@@ -23,6 +23,7 @@ from apps.skills.views import SkillViewSet
 from apps.missions.views import MissionViewSet
 from apps.applications.views import ApplicationViewSet
 from apps.users import auth_views 
+from apps.odds.views import ODDViewSet
 
 # Création du router
 router = DefaultRouter()
@@ -30,6 +31,7 @@ router.register(r'users', UserViewSet)
 router.register(r'skills', SkillViewSet)
 router.register(r'missions', MissionViewSet)
 router.register(r'applications', ApplicationViewSet)
+router.register(r'odds', ODDViewSet)
 
 
 urlpatterns = [
