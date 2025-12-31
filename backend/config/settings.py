@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 import pymysql
 from pathlib import Path
+from decouple import config
 
 pymysql.install_as_MySQLdb()
 
@@ -24,6 +25,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+
+# Database - fonctionne en local ET en production
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('DB_NAME', default=os.environ.get('MYSQLDATABASE')),
+        'USER': config('DB_USER', default=os.environ.get('MYSQLUSER')),
+        'PASSWORD': config('DB_PASSWORD', default=os.environ.get('MYSQLPASSWORD')),
+        'HOST': config('DB_HOST', default=os.environ.get('MYSQLHOST')),
+        'PORT': config('DB_PORT', default=os.environ.get('MYSQLPORT', '3306')),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
+    }
+}
 # Application definition
 
 INSTALLED_APPS = [
@@ -48,6 +67,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -123,6 +143,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 AUTH_USER_MODEL = "users.User"
 
@@ -139,9 +160,9 @@ REST_FRAMEWORK = {
 # =========================
 # Local settings override
 # =========================
-try:
-    from .settings_local import *
-except ImportError:
-    pass
+# try:
+#     from .settings_local import *
+# except ImportError:
+#     pass
 
 

@@ -4,7 +4,11 @@ cryptography==46.0.3
 Django==6.0
 django-filter==25.2
 djangorestframework==3.16.1
+gunicorn==23.0.0
+packaging==25.0
 pycparser==2.23
 PyMySQL==1.1.2
+python-decouple==3.8
 sqlparse==0.5.5
 tzdata==2025.3
+whitenoise==6.11.0
