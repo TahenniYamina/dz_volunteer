@@ -1,6 +1,7 @@
+# apps/skills/models.py
 from django.db import models
 from apps.users.models import User
-# Create your models here.
+
 class Skill(models.Model):
     name = models.CharField(max_length=100)
     verification_required = models.BooleanField(default=False)
@@ -19,5 +20,10 @@ class UserSkill(models.Model):
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
-# Ajouter le ManyToMany dans User via le through model
-User.add_to_class('skills', models.ManyToManyField(Skill, through=UserSkill))
+    class Meta:
+        unique_together = ('user', 'skill')
+
+User.add_to_class(
+    'skills',
+    models.ManyToManyField(Skill, through=UserSkill, related_name='users')
+)

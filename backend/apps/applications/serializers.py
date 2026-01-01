@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from .models import Application
-from apps.users.serializers import UserSerializer
+from apps.users.serializers import VolunteerRegisterSerializer
 from apps.missions.serializers import MissionSerializer
 from apps.missions.models import Mission
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
-    volunteer = UserSerializer(read_only=True)
+    volunteer = VolunteerRegisterSerializer(read_only=True)
     mission = MissionSerializer(read_only=True)
 
     mission_id = serializers.PrimaryKeyRelatedField(

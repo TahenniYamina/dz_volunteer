@@ -1,11 +1,12 @@
 from rest_framework import serializers
 from .models import Mission
-from apps.users.serializers import UserSerializer
 from apps.skills.serializers import SkillSerializer
 from apps.skills.models import Skill
+from apps.users.serializers import OrganizationRegisterSerializer
+
 
 class MissionSerializer(serializers.ModelSerializer):
-    organization = UserSerializer(read_only=True)
+    organization = OrganizationRegisterSerializer(read_only=True)
 
     skills_required = serializers.PrimaryKeyRelatedField(
         queryset=Skill.objects.all(),
