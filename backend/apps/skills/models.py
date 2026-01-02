@@ -19,7 +19,8 @@ class UserSkill(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
-
+    certificate = models.FileField(upload_to='certificates/', null=True, blank=True)
+    
     class Meta:
         unique_together = ('user', 'skill')
 

@@ -8,6 +8,7 @@ from apps.missions.views import MissionViewSet
 from apps.applications.views import ApplicationViewSet
 from apps.odds.views import ODDViewSet
 from apps.users import auth_views
+from . import settings
 
 # Création du router pour les ViewSets
 router = DefaultRouter()
@@ -22,4 +23,9 @@ urlpatterns = [
     
     # Routes d'authentification / inscription
     path('api/', include('apps.users.urls')),
+
+    path('skills/user-skill/', include('apps.skills.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
