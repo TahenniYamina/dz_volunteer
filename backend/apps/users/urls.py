@@ -7,4 +7,5 @@ urlpatterns = [
     path('auth/login/', auth_views.login),
     path('auth/logout/', auth_views.logout),
     path('auth/me/', auth_views.me),
+    path('dashboard/', auth_views.DashboardView.as_view(), name='dashboard'),
 ]

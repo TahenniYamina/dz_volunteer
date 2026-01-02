@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-
+from rest_framework.views import APIView
 from .serializers import (
     VolunteerRegisterSerializer,
     OrganizationRegisterSerializer,
@@ -66,3 +66,29 @@ def logout(request):
 @permission_classes([IsAuthenticated])
 def me(request):
     return Response(UserSerializer(request.user).data)
+
+
+class DashboardView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+
+        if hasattr(user, "volunteer"):
+            # Dashboard pour bénévole
+            data = {
+                "type": "volunteer",
+                "missions": [mission.title for mission in user.volunteer.missions.all()],
+                "skills": [skill.name for skill in user.volunteer.skills.all()],
+            }
+        elif hasattr(user, "organization"):
+            # Dashboard pour organisation
+            data = {
+                "type": "organization",
+                "missions": [mission.title for mission in user.organization.missions.all()],
+                "volunteers_count": user.organization.volunteers.count(),
+            }
+        else:
+            data = {"error": "User type unknown"}
+
+        return Response(data)
