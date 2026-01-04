@@ -27,17 +27,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+
 
 # Database - fonctionne en local ET en production
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME', default=os.environ.get('MYSQLDATABASE')),
-        'USER': config('DB_USER', default=os.environ.get('MYSQLUSER')),
-        'PASSWORD': config('DB_PASSWORD', default=os.environ.get('MYSQLPASSWORD')),
-        'HOST': config('DB_HOST', default=os.environ.get('MYSQLHOST')),
-        'PORT': config('DB_PORT', default=os.environ.get('MYSQLPORT', '3306')),
+        'NAME': os.getenv('DB_NAME', 'dz_volunteer_db'),
+        'USER': os.getenv('DB_USER', 'django_user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'django_password'),
+        'HOST': os.getenv('DB_HOST', 'db'),
+        'PORT': os.getenv('DB_PORT', '3306'),
         'OPTIONS': {
             'charset': 'utf8mb4',
         },

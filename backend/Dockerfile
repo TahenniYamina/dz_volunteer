@@ -1,35 +1,29 @@
-# === Dockerfile ===
-FROM python:3.12-slim
+FROM python:3.11-slim
 
-# Répertoire de travail
+# Dossier de travail
 WORKDIR /app
 
-# Variables d'environnement Python
-ENV PYTHONDONTWRITEBYTECODE=1
+# Variables d'environnement
 ENV PYTHONUNBUFFERED=1
+ENV DJANGO_SETTINGS_MODULE=config.settings
 
-# Dépendances système pour MySQL et compilation Python
+# Dépendances système nécessaires
 RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
     gcc \
     default-mysql-client \
+    netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 
-# Copier les dépendances Python
+# Copier requirements et installer dépendances Python
 COPY requirements.txt .
-
-# Installer Python
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Copier le projet
 COPY . .
 
-# Collecter les fichiers statiques (ignore les erreurs)
-RUN python manage.py collectstatic --noinput || true
-
-# Exposer le port
+# Exposer le port Django
 EXPOSE 8000
 
-# CMD par défaut : Gunicorn pour prod
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "dz_volunteer.wsgi:application"]
+# Commande par défaut
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
