@@ -12,7 +12,6 @@ from . import settings
 
 # Création du router pour les ViewSets
 router = DefaultRouter()
-router.register(r'skills', SkillViewSet)
 router.register(r'missions', MissionViewSet)
 router.register(r'applications', ApplicationViewSet)
 router.register(r'odds', ODDViewSet)
@@ -22,9 +21,9 @@ urlpatterns = [
     path('api/', include(router.urls)),
     
     # Routes d'authentification / inscription
-    path('api/', include('apps.users.urls')),
-
-    path('skills/user-skill/', include('apps.skills.urls')),
+    path('api/users/', include('apps.users.urls')),
+    # routes pour les competences ; operations Crud et creation de user-skill
+    path('api/skills/', include('apps.skills.urls')), 
 ]
 
 if settings.DEBUG:
