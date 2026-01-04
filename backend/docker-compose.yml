@@ -1,0 +1,48 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: dz_mysql
+    environment:
+      MYSQL_DATABASE: dz_volunteer_db
+      MYSQL_USER: django_user
+      MYSQL_PASSWORD: django_password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --skip-ssl
+      --bind-address=0.0.0.0
+
+  backend:
+    build: .
+    container_name: dz_backend
+    command: >
+      sh -c "
+        echo '=== Attente de MySQL ===' &&
+        until mysql -h db -u django_user -pdjango_password --skip-ssl -e 'SELECT 1' >/dev/null 2>&1; do
+          echo 'MySQL pas encore prêt, nouvelle tentative dans 3s...'
+          sleep 3
+        done &&
+        echo '=== MySQL est prêt ! ===' &&
+        echo '=== Lancement des migrations ===' &&
+        python manage.py migrate --noinput &&
+        echo '=== Migrations terminées ===' &&
+        python manage.py runserver 0.0.0.0:8000
+      "
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_NAME: dz_volunteer_db
+      DB_USER: django_user
+      DB_PASSWORD: django_password
+
+volumes:
+  mysql_data:
