@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.11-slim
 
 # Dossier de travail
 WORKDIR /app
@@ -7,13 +7,12 @@ WORKDIR /app
 ENV PYTHONUNBUFFERED=1
 ENV DJANGO_SETTINGS_MODULE=config.settings
 
-
-
- # Dépendances système nécessaires à mysqlclient et mysqladmin
+# Dépendances système nécessaires
 RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
     gcc \
     default-mysql-client \
+    netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 
 # Copier requirements et installer dépendances Python
@@ -28,5 +27,3 @@ EXPOSE 8000
 
 # Commande par défaut
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
-
