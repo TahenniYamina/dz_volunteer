@@ -1,70 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, MapPin, ChevronDown, Heart } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { missionsAPI } from '../services/api';
 import './Missions.css';
 
 const Missions = () => {
+  const navigate = useNavigate();
+  const [missions, setMissions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState(['Toutes']);
+  const [searchParams, setSearchParams] = useState({
+    search: '',
+    location: '',
+  });
 
-  const missions = [
-    {
-      id: 1,
-      image: `${process.env.PUBLIC_URL}/photo1.jpg`,
-      badge: 'Super Organisation',
-      urgent: false,
-      nouveau: false,
-      title: 'Mentorat pour jeunes étudiants',
-      organization: 'Association Avenir',
-      location: 'Paris (75)',
-      description: 'Accompagnez des lycéens issus de quartiers prioritaires pour les aider à construire leur projet d\'avenir. Une...',
-      category: 'Education',
-      frequency: '2h / semaine',
-      time: 'Il y a 2 jours'
-    },
-    {
-      id: 2,
-      image: `${process.env.PUBLIC_URL}/photo2.jpg`,
-      badge: null,
-      urgent: true,
-      nouveau: false,
-      title: 'Plantation d\'arbres urbains',
-      organization: 'Green Planet',
-      location: 'Lyon (69)',
-      description: 'Rejoignez notre grande opération de végétalisation ce week-end. Matériel fourni, bonne humeur garantie !',
-      category: 'Environnement',
-      frequency: 'Ce week-end',
-      time: 'Il y a 4 heures'
-    },
-    {
-      id: 3,
-      image: `${process.env.PUBLIC_URL}/photo3.jpg`,
-      badge: null,
-      urgent: false,
-      nouveau: false,
-      title: 'Création de site web Wordpress',
-      organization: 'La Croix Rouge',
-      location: 'National',
-      description: 'Nous cherchons un bénévole expert Wordpress pour refondre la page de notre antenne locale.',
-      category: 'Tech',
-      frequency: 'Flexible',
-      time: 'Hier',
-      remote: true
-    },
-    {
-      id: 4,
-      image: `${process.env.PUBLIC_URL}/photo4.jpg`,
-      badge: null,
-      urgent: false,
-      nouveau: true,
-      title: 'Distribution alimentaire',
-      organization: 'Les Restos du Cœur',
-      location: 'Marseille (13)',
-      description: 'Aidez-nous à trier et distribuer des repas chauds aux personnes dans le besoin chaque soir.',
-      category: 'Social',
-      frequency: 'Récurrent',
-      time: 'Il y a 10 min'
+  // Charger les missions au montage du composant
+  useEffect(() => {
+    fetchMissions();
+  }, []);
+
+  const fetchMissions = async () => {
+    try {
+      setLoading(true);
+      const response = await missionsAPI.getAll(searchParams);
+      setMissions(response.data);
+      setError(null);
+    } catch (err) {
+      console.error('Erreur lors du chargement des missions:', err);
+      setError('Impossible de charger les missions. Veuillez réessayer.');
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  const handleSearch = () => {
+    fetchMissions();
+  };
+
+  const handleLocationChange = (e) => {
+    setSearchParams({ ...searchParams, location: e.target.value });
+  };
+
+  const handleReset = () => {
+    setSearchParams({ search: '', location: '' });
+    fetchMissions();
+  };
+
+  const handleMissionClick = (missionId) => {
+    navigate(`/mission/${missionId}`);
+  };
+
+  if (loading) {
+    return (
+      <div className="missions-page">
+        <Navbar />
+        <div style={{ textAlign: 'center', padding: '50px', fontSize: '18px' }}>
+          Chargement des missions...
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="missions-page">
+        <Navbar />
+        <div style={{ textAlign: 'center', padding: '50px', fontSize: '18px', color: 'red' }}>
+          {error}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="missions-page">
@@ -72,7 +80,7 @@ const Missions = () => {
       
       {/* Hero Section */}
       <div className="hero-section">
-        <h1 className="hero-title">1 240 opportunités pour changer les choses aujourd'hui.</h1>
+        <h1 className="hero-title">{missions.length} opportunités pour changer les choses aujourd'hui.</h1>
         <p className="hero-subtitle">
           Rejoignez une communauté de 50 000 bénévoles engagés pour un impact positif local et global.
         </p>
@@ -83,7 +91,9 @@ const Missions = () => {
         <aside className="filters-sidebar">
           <div className="filters-header">
             <h3 className="filters-title">Filtres</h3>
-            <button className="reset-btn">Réinitialiser</button>
+            <button className="reset-btn" onClick={handleReset}>
+              Réinitialiser
+            </button>
           </div>
 
           {/* Localisation */}
@@ -91,8 +101,13 @@ const Missions = () => {
             <h4 className="filter-label">Localisation</h4>
             <div className="location-input">
               <MapPin className="location-icon" />
-              <input type="text" placeholder="Ville ou code postal" />
-              <button className="locate-btn">⊕</button>
+              <input 
+                type="text" 
+                placeholder="Ville ou code postal" 
+                value={searchParams.location}
+                onChange={handleLocationChange}
+              />
+              <button className="locate-btn" onClick={handleSearch}>🔍</button>
             </div>
           </div>
 
@@ -159,7 +174,7 @@ const Missions = () => {
           {/* Filter Tabs */}
           <div className="filter-tabs-section">
             <div className="tabs-header">
-              <span className="missions-count">145 missions trouvées</span>
+              <span className="missions-count">{missions.length} missions trouvées</span>
               <div className="sort-container">
                 <span className="sort-label">Trier par:</span>
                 <select className="sort-select">
@@ -189,66 +204,81 @@ const Missions = () => {
 
           {/* Missions Grid */}
           <div className="missions-grid">
-            {missions.map((mission) => (
-              <div key={mission.id} className="mission-card-item">
-                <div className="mission-image-container">
-                  <img src={mission.image} alt={mission.title} className="mission-image" />
-                  {mission.badge && (
-                    <span className="mission-badge super-org">⭐ {mission.badge}</span>
-                  )}
-                  {mission.urgent && (
-                    <span className="mission-badge urgent">⚡ Urgent</span>
-                  )}
-                  {mission.nouveau && (
-                    <span className="mission-badge nouveau">✨ Nouveau</span>
-                  )}
-                  <button className="favorite-btn">
-                    <Heart className="heart-icon" />
-                  </button>
-                </div>
-
-                <div className="mission-card-content">
-                  <div className="mission-card-header">
-                    <h3 className="mission-card-title">{mission.title}</h3>
-                    <button className="mission-arrow-btn">→</button>
-                  </div>
-                  
-                  <p className="mission-org-location">
-                    {mission.organization} • {mission.location}
-                  </p>
-
-                  <p className="mission-description">{mission.description}</p>
-
-                  <div className="mission-meta">
-                    <span className="mission-category">
-                      {mission.category === 'Education' && '📚'}
-                      {mission.category === 'Environnement' && '🌳'}
-                      {mission.category === 'Tech' && '💻'}
-                      {mission.category === 'Social' && '👥'}
-                      {' '}{mission.category}
-                    </span>
-                    <span className="mission-frequency">
-                      {mission.remote && '📍 '}
-                      {mission.frequency}
-                    </span>
-                  </div>
-
-                  <div className="mission-card-footer">
-                    <span className="mission-time">{mission.time}</span>
-                    <button className="view-mission-btn">Voir la mission</button>
-                  </div>
-                </div>
+            {missions.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '50px', fontSize: '18px' }}>
+                Aucune mission trouvée. Essayez de modifier vos filtres.
               </div>
-            ))}
+            ) : (
+              missions.map((mission) => (
+                <div key={mission.id} className="mission-card-item">
+                  <div className="mission-image-container">
+                    <img 
+                      src={mission.image || `${process.env.PUBLIC_URL}/photo1.jpg`} 
+                      alt={mission.title} 
+                      className="mission-image" 
+                      onError={(e) => {
+                        e.target.src = `${process.env.PUBLIC_URL}/photo1.jpg`;
+                      }}
+                    />
+                    <button className="favorite-btn">
+                      <Heart className="heart-icon" />
+                    </button>
+                  </div>
+
+                  <div className="mission-card-content">
+                    <div className="mission-card-header">
+                      <h3 className="mission-card-title">{mission.title}</h3>
+                      <button 
+                        className="mission-arrow-btn"
+                        onClick={() => handleMissionClick(mission.id)}
+                      >
+                        →
+                      </button>
+                    </div>
+                    
+                    <p className="mission-org-location">
+                      {mission.organization_name || 'Organisation'} • {mission.location}
+                    </p>
+
+                    <p className="mission-description">
+                      {mission.description.length > 150 
+                        ? mission.description.substring(0, 150) + '...'
+                        : mission.description
+                      }
+                    </p>
+
+                    <div className="mission-meta">
+                      <span className="mission-category">
+                        📅 {new Date(mission.date).toLocaleDateString('fr-FR')}
+                      </span>
+                      <span className="mission-frequency">
+                        👥 {mission.enrolled_count || 0}/{mission.slots} inscrits
+                      </span>
+                    </div>
+
+                    <div className="mission-card-footer">
+                      <button 
+                        className="view-mission-btn"
+                        onClick={() => handleMissionClick(mission.id)}
+                      >
+                        Voir la mission
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
 
           {/* Load More */}
-          <div className="load-more-section">
-            <button className="load-more-btn">
-              Voir plus de missions <ChevronDown className="chevron-icon" />
-            </button>
-            <p className="missions-info">Affichage de 4 sur 145 missions</p>
-          </div>
+          {missions.length > 0 && (
+            <div className="load-more-section">
+              <button className="load-more-btn">
+                Voir plus de missions <ChevronDown className="chevron-icon" />
+              </button>
+              <p className="missions-info">Affichage de {missions.length} missions</p>
+            </div>
+          )}
         </main>
       </div>
     </div>

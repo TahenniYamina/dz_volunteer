@@ -1,88 +1,4 @@
-/*import React from 'react';
-import Header from '../components/Header';
-import ProfileCard from '../components/ProfileCard';
-import Skills from '../components/Skills';
-import StatsCard from '../components/StatsCard';
-import MissionCard from '../components/MissionCard';
-import LevelCard from '../components/LevelCard';
-import CalendarWidget from '../components/CalendarWidget';
-import ApplicationsTable from '../components/ApplicationsTable';
-import MessagesWidget from '../components/MessagesWidget';
-import './DashboardPage.css';
-
-const DashboardPage = () => {
-  const userData = {
-    name: 'Thomas Dupont',
-    motto: 'Agir pour un monde plus solidaire',
-    profileCompletion: 85,
-    hours: '120h',
-    missions: 15,
-    impactScore: 850,
-    level: 3,
-    skills: ['Gestion de projet', 'Premiers Secours']
-  };
-
-  const currentMissions = [
-    { month: 'OCT', day: '14', status: 'Confirmé', title: 'Distribution alimentaire', organization: 'Restos du Coeur', location: 'Paris 13ème', participants: 5, time: '14:00 - 18:00' },
-    { month: 'HEBDO', day: 'MER', status: 'En cours', title: 'Soutien Scolaire Lycéens', organization: 'Secours Populaire', location: 'Distanciel', participants: 0, time: '' }
-  ];
-
-  const applications = [
-    { mission: 'Maraude Sociale', association: 'Croix Rouge', date: '18 Oct', status: 'En attente' },
-    { mission: 'Collecte Vêtements', association: 'Emmaüs', date: '22 Oct', status: 'Acceptée' }
-  ];
-
-  const calendarEvents = [
-    { title: 'Distribution alimentaire', time: '14 Oct • 14:00' },
-    { title: 'Soutien Scolaire', time: '16 Oct • 17:30' }
-  ];
-
-  const messages = [
-    { sender: 'Sophie Martin', preview: "Merci pour ton aide hier ! ...", unread: true },
-    { sender: 'Marc Dubois', preview: "On se retrouve à 14h ?", unread: true }
-  ];
-
-  return (
-    <div className="dashboard-page">
-      <Header userName={userData.name} />
-      <div className="dashboard-container">
-        <div className="left-sidebar">
-          <ProfileCard user={userData} />
-          <Skills skills={userData.skills} />
-        </div>
-
-        <div className="main-content">
-          <button className="find-mission-btn">🔍 Trouver une mission</button>
-
-          <div className="stats-grid">
-            <StatsCard label="Heures totales" value="120h" change="12%" />
-            <StatsCard label="Missions" value="15" change="2" />
-            <StatsCard label="Impact Score" value="850" />
-          </div>
-
-          <div className="missions-section">
-            <h2>Missions en cours</h2>
-            <div className="missions-list">
-              {currentMissions.map((m, i) => <MissionCard key={i} mission={m} />)}
-            </div>
-          </div>
-
-          <ApplicationsTable applications={applications} />
-        </div>
-
-        <div className="right-sidebar">
-          <LevelCard level={3} missions={2} nextLevel={4} />
-          <CalendarWidget events={calendarEvents} />
-          <MessagesWidget messages={messages} />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default DashboardPage;*/
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Clock, Search } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import ProfileCard from '../components/ProfileCard';
@@ -93,9 +9,67 @@ import LevelCard from '../components/LevelCard';
 import CalendarComponent from '../components/CalendarComponent';
 import Messages from '../components/Messages';
 import Candidatures from '../components/Candidatures';
+import { applicationsAPI, usersAPI } from '../services/api';
 import './Dashboard.css';
 
 const Dashboard = () => {
+  const [applications, setApplications] = useState([]);
+  const [stats, setStats] = useState({
+    totalHours: 120,
+    totalMissions: 15,
+    impactScore: 850
+  });
+  const [loading, setLoading] = useState(true);
+
+  // ID du bénévole (à récupérer depuis le localStorage après login)
+  const volunteerId = localStorage.getItem('userId') || 1;
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      
+      // Récupérer les candidatures du bénévole
+      const appsResponse = await applicationsAPI.getMyApplications(volunteerId);
+      setApplications(appsResponse.data);
+      
+      // Calculer les stats
+      const confirmedMissions = appsResponse.data.filter(app => app.status === 'confirmed');
+      const totalHours = appsResponse.data.reduce((sum, app) => sum + (app.hours_validated || 0), 0);
+      
+      setStats({
+        totalHours: totalHours,
+        totalMissions: confirmedMissions.length,
+        impactScore: totalHours * 10 // Exemple de calcul
+      });
+      
+    } catch (error) {
+      console.error('Erreur lors du chargement des données:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="dashboard">
+        <Navbar />
+        <div style={{ textAlign: 'center', padding: '50px', fontSize: '18px' }}>
+          Chargement...
+        </div>
+      </div>
+    );
+  }
+
+  // Filtrer les missions en cours (confirmées)
+  const currentMissions = applications.filter(app => app.status === 'confirmed');
+  
+  // Filtrer les candidatures en attente
+  const pendingApplications = applications.filter(app => app.status === 'pending');
+
   return (
     <div className="dashboard">
       <Navbar />
@@ -117,19 +91,19 @@ const Dashboard = () => {
               <StatsCard
                 icon={<Clock className="stats-icon-svg" />}
                 label="Heures totales"
-                value="120h"
+                value={`${stats.totalHours}h`}
                 change="+12%"
               />
               <StatsCard
                 icon={<img src="/volunteeractivism.png" alt="Missions" />}
                 label="Missions"
-                value="15"
+                value={stats.totalMissions}
                 change="+2"
               />
               <StatsCard
                 icon={<img src="/star.png" alt="Impact" />}
                 label="Impact Score"
-                value="850"
+                value={stats.impactScore}
               />
             </div>
 
@@ -144,32 +118,30 @@ const Dashboard = () => {
                 <a href="#" className="see-all">Voir tout</a>
               </div>
               <div className="missions-list">
-                <MissionCard
-                  date="14"
-                  month="OCT"
-                  status="Confirmé"
-                  statusColor="status-green"
-                  title="Distribution alimentaire"
-                  organization="Restos du Cœur"
-                  location="Paris 13ème"
-                  participants="5"
-                  time="14:00 - 18:00"
-                />
-                <MissionCard
-                  date="MER"
-                  month="HEBDO"
-                  status="En cours"
-                  statusColor="status-blue"
-                  title="Soutien Scolaire Lycéens"
-                  organization="Secours Populaire"
-                  location="Distanciel"
-                  participants=""
-                  time=""
-                />
+                {currentMissions.length === 0 ? (
+                  <p style={{ textAlign: 'center', padding: '20px' }}>
+                    Vous n'avez pas encore de missions confirmées.
+                  </p>
+                ) : (
+                  currentMissions.slice(0, 2).map((app) => (
+                    <MissionCard
+                      key={app.id}
+                      date={new Date(app.mission.date).getDate()}
+                      month={new Date(app.mission.date).toLocaleDateString('fr-FR', { month: 'short' }).toUpperCase()}
+                      status="Confirmé"
+                      statusColor="status-green"
+                      title={app.mission.title}
+                      organization={app.mission.organization_name || 'Organisation'}
+                      location={app.mission.location}
+                      participants=""
+                      time=""
+                    />
+                  ))
+                )}
               </div>
             </div>
 
-            <Candidatures />
+            <Candidatures applications={pendingApplications} />
           </div>
 
           <div className="sidebar-right">
