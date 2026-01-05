@@ -14,6 +14,15 @@ import pymysql
 from pathlib import Path
 from decouple import config
 
+
+
+
+SECRET_KEY = config('SECRET_KEY', default='une_cle_secrete')
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+
+
+
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,8 +34,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = [
     "dzvolunteer-production.up.railway.app",
